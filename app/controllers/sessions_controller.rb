@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password]) # && user.locked?
+    if user && user.authenticate(params[:password]) && user.locked?
       sign_in user
       redirect_back_or user
     elsif user.locked?
