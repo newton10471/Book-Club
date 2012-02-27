@@ -33,6 +33,10 @@ module SessionsHelper
   def store_location
     session[:return_to] = request.fullpath
   end
+
+  def locked?(user)
+    user.locked
+  end
   
   private
 

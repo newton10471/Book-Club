@@ -37,6 +37,12 @@ describe User do
     it { should be_admin }
   end
 
+  describe "with locked attribute set to 'true'" do
+    before { @user.toggle!(:locked) }
+
+    it { should be_locked }
+  end
+
   it { should respond_to(:authenticate) }
 
   describe "when name is not present" do
