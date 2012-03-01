@@ -27,6 +27,7 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) } 
+  it { should respond_to(:locked) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -37,13 +38,9 @@ describe User do
     it { should be_admin }
   end
 
-  describe "with locked attribute set to 'true'" do
-    before { @user.toggle!(:locked) }
-
+  describe "with locked attribute set to 'true' by default" do
     it { should be_locked }
   end
-
-  it { should respond_to(:authenticate) }
 
   describe "when name is not present" do
     before { @user.name = " " }
