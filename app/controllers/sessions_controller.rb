@@ -5,12 +5,14 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_email(params[:email])
     if user
-      if user.locked?
-       flash.now[:error] = 'Account is locked' 
-       render 'new'
-      elsif user.authenticate(params[:password]) # && user.locked?
-        sign_in user
-        redirect_back_or user
+      if user.authenticate(params[:password]) # && user.locked?
+        if user.locked?
+          flash.now[:error] = 'Account is locked' 
+          render 'new'
+        else
+          sign_in user
+          redirect_back_or user
+        end
       end
     else
       flash.now[:error] = 'Invalid email/password combination' 
