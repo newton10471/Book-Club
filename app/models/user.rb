@@ -11,12 +11,8 @@
 
 class User < ActiveRecord::Base
 	attr_accessible :name, :email, :password, :password_confirmation, :locked
-  	has_secure_password
+  has_secure_password
  	before_save :create_remember_token
- 	# after_initialize won't work here, for the following reason (section 9.2.7 in The Rails 3 Way):
- 	# The after_initialize callback is invoked whenever a new Active Record model is instantiated 
- 	# (either from scratch or from the database).
- 	# after_initialize :set_defaults
 
 	validates :name, presence: true, length: { maximum: 50 }
 	valid_email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

@@ -38,7 +38,9 @@ describe User do
     it { should be_admin }
   end
 
-  describe "with locked attribute set to 'true' by default" do
+  describe "with locked attribute set to 'true'" do
+    before { @user.toggle!(:locked) }
+
     it { should be_locked }
   end
 

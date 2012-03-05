@@ -27,3 +27,12 @@ def sign_in(user)
   # Sign in when not using Capybara as well.
   cookies[:remember_token] = user.remember_token
 end
+
+def sign_up(user)
+  visit signup_path
+  fill_in "Name",         with: "Example User"
+  fill_in "Email",        with: "user@example.com"
+  fill_in "Password",     with: "foobar"
+  fill_in "Confirmation", with: "foobar"
+  click_button "Sign up"
+end

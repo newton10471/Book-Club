@@ -24,7 +24,7 @@ describe "User pages" do
 
       it { should have_link('Next') }
       it { should have_link('2') }
-      it { should_not have_link('delete') }
+      it { should_not have_link('delete') } 
 
       it "should list the first page of users" do
         first_page.each do |user|
@@ -50,6 +50,22 @@ describe "User pages" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
         it { should_not have_link('delete', href: user_path(admin)) }
+      end
+
+      describe "as an admin user to unlock new users" do
+
+        let(:admin) { FactoryGirl.create(:admin) }
+        let(:user) { FactoryGirl.create(:user) }
+
+        before do
+          sign_up user
+          sign_in admin
+          visit users_path
+        end
+
+        # verify that the admin has a button to unlock the user
+        it { should have_link('unlock', href: user_path(:user)) }
+
       end
 
       it "should list each user" do
@@ -106,9 +122,11 @@ describe "User pages" do
         before { click_button "Sign up" }
         let(:user) { User.find_by_email('user@example.com') }
 
-        it { should have_selector('title', text: user.name) }
-        it { should have_selector('div.flash.success', text: 'Welcome') }
-        it { should have_link('Sign out') }
+        it { should have_selector('title', text: 'Home') }
+        it { should have_selector('div.flash.success', text: 'Thanks for signing up!') }
+        it { should have_link('Sign in') }
+
+        specify { user.locked.should  == true }
       end
       
       it "should create a user" do

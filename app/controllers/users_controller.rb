@@ -31,10 +31,12 @@ class UsersController < ApplicationController
     end
 
     @user = User.new(params[:user])
+    @user.locked = true
     if @user.save
-      sign_in @user
-    	flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      #sign_in @user
+    	flash[:success] = "Thanks for signing up!  You will receive an email confirmation once your membership is approved."
+      # redirect_to @user
+      redirect_to root_path
     else
       render 'new'
     end
