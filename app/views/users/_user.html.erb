@@ -4,4 +4,7 @@
   <% if current_user.admin? && !current_user?(user) %>
     | <%= link_to "delete", user, method: :delete, confirm: "You sure?" %>
   <% end %>
+  <% if user.locked? && !current_user?(user) %>
+    | <%= link_to "unlock", user, method: :unlock, confirm: "Enable new user?" %>
+  <% end %>
 </li>

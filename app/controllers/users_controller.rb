@@ -55,6 +55,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def unlock
+    user.toggle!(:locked)
+    redirect_to users_path
+  end
+
   private
 
     def signed_in_user

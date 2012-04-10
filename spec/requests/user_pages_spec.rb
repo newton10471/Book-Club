@@ -58,7 +58,8 @@ describe "User pages" do
         let(:user) { FactoryGirl.create(:user) }
 
         before do
-          sign_up user
+        # not sure why we need the next line - mnewton 04/04/2012
+        #  sign_up user
           sign_in admin
           visit users_path
         end
