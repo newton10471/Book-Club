@@ -1,5 +1,10 @@
 SampleAppRails321::Application.routes.draw do
-  resources :users
+  resources :users do
+    member do
+      get 'unlock'
+    end
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signup',  to: 'users#new'

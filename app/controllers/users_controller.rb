@@ -56,7 +56,8 @@ class UsersController < ApplicationController
   end
 
   def unlock
-    user.toggle!(:locked)
+    User.find(params[:id]).toggle!(:locked)
+    flash[:success] = "User enabled."
     redirect_to users_path
   end
 
