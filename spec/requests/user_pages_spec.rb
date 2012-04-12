@@ -59,7 +59,8 @@ describe "User pages" do
 
         before do
         # not sure why we need the next line - mnewton 04/04/2012
-        #  sign_up user
+        # next line required to have a target user for check which follows this one
+          sign_up user
           sign_in admin
           visit users_path
         end
