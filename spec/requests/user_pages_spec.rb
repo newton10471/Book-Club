@@ -60,7 +60,15 @@ describe "User pages" do
         before do
         # not sure why we need the next line - mnewton 04/04/2012
         # next line required to have a target user for check which follows this one
-          sign_up user
+        #  sign_up user
+
+          visit signup_path
+          fill_in "Name",         with: "Example User"
+          fill_in "Email",        with: "user@example.com"
+          fill_in "Password",     with: "foobar"
+          fill_in "Confirmation", with: "foobar"
+          click_button "Sign up"
+
           sign_in admin
           visit users_path
         end
