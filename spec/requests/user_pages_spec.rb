@@ -50,33 +50,30 @@ describe "User pages" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
         it { should_not have_link('delete', href: user_path(admin)) }
-      end
 
-      describe "as an admin user to unlock new users" do
+        describe "other users should have an unlock link" do  ## changed the description
+          let!(:locked_user) { FactoryGirl.create(:locked) }
+          before { visit users_path }
 
-        let(:admin) { FactoryGirl.create(:admin) }
-        let(:user) { FactoryGirl.create(:user) }
-
-        before do
-        # not sure why we need the next line - mnewton 04/04/2012
-        # next line required to have a target user for check which follows this one
-        #  sign_up user
-
-          visit signup_path
-          fill_in "Name",         with: "Example User"
-          fill_in "Email",        with: "user@example.com"
-          fill_in "Password",     with: "foobar"
-          fill_in "Confirmation", with: "foobar"
-          click_button "Sign up"
-
-          sign_in admin
-          visit users_path
+          it { should have_link('unlock', href: user_path(locked_user)) }
         end
 
-        # verify that the admin has a button to unlock the user
-        it { should have_link('unlock', href: user_path(:user)) }
-
       end
+
+
+
+      # describe "as an admin user to unlock new users" do
+      #   let(:admin) { FactoryGirl.create(:admin) }
+      #   let(:locked_user) { FactoryGirl.create(:locked) }
+      #   before do
+      #     sign_in admin
+      #     visit users_path
+      #   end
+
+      #   # binding.pry  
+      #   it { should have_link('unlock', href: user_path(locked_user)) }
+      #   it { should_not have_link('unlock', href: user_path(admin)) }
+      # end
 
       it "should list each user" do
         User.all[0..2].each do |user|

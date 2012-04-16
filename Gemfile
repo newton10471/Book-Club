@@ -34,6 +34,7 @@ group :test do
   gem 'cucumber-rails', '1.2.1'
   gem 'database_cleaner', '0.7.0'
   gem 'guard-cucumber'
+  gem 'pry-rails'
 end
 
 group :production do
