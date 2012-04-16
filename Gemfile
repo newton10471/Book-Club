@@ -35,6 +35,7 @@ group :test do
   gem 'database_cleaner', '0.7.0'
   gem 'guard-cucumber'
   gem 'pry-rails'
+  gem 'launchy'
 end
 
 group :production do
